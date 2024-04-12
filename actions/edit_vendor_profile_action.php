@@ -1,11 +1,11 @@
 <?php
-// Start session
+
 session_start();
 
-// Include database connection
+
 include '../settings/connection.php';
 
-// Check if user is logged in
+
 if(isset($_SESSION["user_id"])) {
     // Get the user ID from session
     $user_id = $_SESSION["user_id"];
@@ -16,35 +16,36 @@ if(isset($_SESSION["user_id"])) {
 
     // Processing form data when form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Validate first name
+        
+        // Validations
         if (empty(trim($_POST["first_name"]))) {
             $first_name_err = "Please enter first name.";
         } else {
             $first_name = trim($_POST["first_name"]);
         }
 
-        // Validate last name
+        
         if (empty(trim($_POST["last_name"]))) {
             $last_name_err = "Please enter last name.";
         } else {
             $last_name = trim($_POST["last_name"]);
         }
 
-        // Validate location
+        
         if (empty(trim($_POST["location"]))) {
             $location_err = "Please enter location.";
         } else {
             $location = trim($_POST["location"]);
         }
 
-        // Validate phone
+        
         if (empty(trim($_POST["phone"]))) {
             $phone_err = "Please enter phone number.";
         } else {
             $phone = trim($_POST["phone"]);
         }
 
-        // Validate price range
+        
         if (empty(trim($_POST["price_range"]))) {
             $price_range_err = "Please enter price range.";
         } else {

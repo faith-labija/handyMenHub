@@ -1,11 +1,11 @@
 <?php
-// Start session
+
 session_start();
 
-// Include database connection
+
 include '../settings/connection.php';
 
-// Check if form is submitted
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate user input
     $service_name = $_POST['service_name'] ?? '';
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Retrieve user ID from session
+    
     $user_id = $_SESSION['user_id'];
 
     // Fetch vendor ID corresponding to the user ID
@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['error_message'] = "Error inserting service. Please try again.";
         }
 
-        // Close statement
+        
         $insert_service_stmt->close();
     } else {
         $_SESSION['error_message'] = "Error: Vendor ID not found for the user.";
@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $get_vendor_id_stmt->close();
 }
 
-// Close connection
+
 $con->close();
 
 // If there was an error, redirect back to the form page with an error message

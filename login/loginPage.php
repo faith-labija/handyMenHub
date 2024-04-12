@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Login Page</title>
-    <link rel="stylesheet" type="text/css" href="loginPage.css">
+    
     
 
     <style>
@@ -19,7 +19,7 @@
             height: 100vh;
         }
 
-        /* Adjust .form-wrapper styles to fit within the container */
+        
         .form-wrapper {
             border-radius: 20px;
             padding: 40px;
@@ -38,7 +38,7 @@
 
         .form-wrapper form {
             margin: auto; /* Center the form horizontally */
-            max-width: 300px; /* Set maximum width for the form */
+            max-width: 300px; 
         }
 
         .form-control {

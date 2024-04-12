@@ -5,9 +5,9 @@ include '../settings/connection.php';
 $sql = "SELECT DISTINCT service_name FROM services";
 $result = $con->query($sql);
 
-// Check if there are any rows returned
+
 if ($result->num_rows > 0) {
-    // Fetch the distinct service names
+    
     $services = $result->fetch_all(MYSQLI_ASSOC);
 } else {
     // If no rows returned, display an error message or handle it as needed
@@ -22,7 +22,7 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choose a Service</title>
-    <!-- Include CSS file or style the elements directly -->
+    
     <style>
         body {
             background: url('https://st.depositphotos.com/1031174/1997/i/950/depositphotos_19971449-stock-photo-work-tools.jpg') center fixed;
@@ -36,7 +36,7 @@ if ($result->num_rows > 0) {
             height: 100vh;
         }
 
-        /* Adjust .form-wrapper styles to fit within the container */
+        
         .form-wrapper {
             border-radius: 20px;
             padding: 40px;
@@ -53,7 +53,7 @@ if ($result->num_rows > 0) {
             margin-bottom: 20px;
         }
 
-        /* Style the select element */
+        
         select {
             width: 100%;
             height: 40px;
@@ -66,7 +66,7 @@ if ($result->num_rows > 0) {
             font-size: 1rem;
         }
 
-        /* Style the button */
+        
         .button {
             display: block;
             width: 100%;

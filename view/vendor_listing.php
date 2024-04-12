@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vendors</title>
-    <!-- Include CSS file or style the elements directly -->
+    <!-- Internal css for styling -->
     <style>
         body {
             background: url('https://st.depositphotos.com/1031174/1997/i/950/depositphotos_19971449-stock-photo-work-tools.jpg') center fixed;
@@ -18,7 +18,7 @@
             height: 100vh;
         }
 
-        /* Adjust .form-wrapper styles to fit within the container */
+        
         .form-wrapper {
             border-radius: 20px;
             padding: 40px;
@@ -35,7 +35,7 @@
             margin-bottom: 20px;
         }
 
-        /* Style the vendor cards */
+        
         .vendor-card {
             background: #333;
             color: #fff;
@@ -60,7 +60,7 @@
             margin-bottom: 5px;
         }
 
-        /* Style the buttons */
+        
         .vendor-card form button {
             display: block;
             width: 100%;
@@ -80,7 +80,7 @@
             background: #555;
         }
 
-        /* Style the "Go Back" button */
+    
         .form-wrapper a.button {
             display: block;
             background: #333;
@@ -116,14 +116,14 @@
 
             // Check if vendors data is available
             if ($result && $result->num_rows > 0) {
-                // Fetch vendors data as an associative array
+                
                 $vendors = $result->fetch_all(MYSQLI_ASSOC);
 
-                // Loop through each vendor
+            
                 foreach ($vendors as $vendor) {
                     // Display vendor information only if all required fields are not null
                     if ($vendor['first_name'] && $vendor['last_name'] && $vendor['location'] && $vendor['phone'] && $vendor['price_range']) {
-                        // Display vendor information
+                    
                         echo "<div class='vendor-card'>";
                         echo "<h2>{$vendor['first_name']} {$vendor['last_name']}</h2>";
                         echo "<p><strong>Location:</strong> {$vendor['location']}</p>";
@@ -146,11 +146,14 @@
 
                         // Display buttons with vendor ID as value
                         echo "<form action='../view/book_vendor.php' method='POST'>";
-                        echo "<input type='hidden' name='vendor_id' value='{$vendor['vendor_id']}'>"; // Pass vendor ID to book vendor page
+                        // Pass vendor ID to book vendor page
+
+                        echo "<input type='hidden' name='vendor_id' value='{$vendor['vendor_id']}'>"; 
                         echo "<button type='submit'>Book Me</button>";
                         echo "</form>";
                         echo "<form action='../view/review_vendor.php' method='POST'>";
-                        echo "<input type='hidden' name='vendor_id' value='{$vendor['vendor_id']}'>"; // Pass vendor ID to review vendor page
+                         // Pass vendor ID to review vendor page
+                        echo "<input type='hidden' name='vendor_id' value='{$vendor['vendor_id']}'>";
                         echo "<button type='submit'>Review Me</button>";
                         echo "</form>";
 
@@ -162,7 +165,7 @@
                 echo "No vendors found with complete information.";
             }
             ?>
-            <!-- Go back button -->
+            
             <p><a href="../view/standard_welcome.php" class="button">Go Back</a></p>
         </div>
     </div>

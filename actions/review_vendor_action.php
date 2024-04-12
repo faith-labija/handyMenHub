@@ -5,9 +5,9 @@ include '../settings/connection.php';
 // Enable error reporting
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-// Handle form submission
+// Handle form submission using POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
+    
     $vendor_first_name = $_POST['vendor_first_name']; // New field
     $vendor_phone = $_POST['vendor_phone']; // New field
     $rating = $_POST['rating'];
@@ -26,17 +26,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $vendor_row = $get_vendor_id_result->fetch_assoc();
         $vendor_id = $vendor_row['vendor_id'];
 
-        // Retrieve user_id from session
+        
         $user_id = $_SESSION['user_id'];
 
         // Insert data into the reviews table
         $insert_review_sql = "INSERT INTO reviews (user_id, vendor_id, rating, note, date_posted) VALUES (?, ?, ?, ?, ?)";
         $insert_review_stmt = $con->prepare($insert_review_sql);
         if ($insert_review_stmt) {
+
             // Bind parameters and execute the statement
             $insert_review_stmt->bind_param("iiiss", $user_id, $vendor_id, $rating, $note, $date);
             if ($insert_review_stmt->execute()) {
-                // Successful insertion
+                
                 echo "Review submitted successfully!";
                 exit();
             } else {
@@ -52,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Vendor not found with provided details.";
     }
 
-    // Close statement and result set
+    
     $get_vendor_id_stmt->close();
     $get_vendor_id_result->close();
 } else {

@@ -30,12 +30,12 @@ if (isset($_POST['signUp'])) {
     // Execute the statement
     if ($stmt->execute()) {
         header("location: ../login/loginPage.php");
-        exit(); // Ensure no further code execution after redirection
+        exit(); 
     } elseif (!$stmt->execute()) {
         die('Execute failed: ' . $stmt->error);
     }
 
-    // Close statement
+  
     $stmt->close();
 } else {
     echo 'Form submission not detected.';

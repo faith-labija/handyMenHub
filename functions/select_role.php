@@ -1,6 +1,6 @@
 <?php
 function getUsers() {
-    include '../settings/connection.php'; // Assuming you have a separate file for database connection
+    include '../settings/connection.php'; 
 
     $sql = "SELECT role FROM usertype WHERE id != 1";
     $result = $con->query($sql);
