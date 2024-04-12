@@ -35,9 +35,9 @@
 
                 // Filter out and display only "standard" and "vendor" roles
                 foreach ($web_users as $role) {
-                    if ($role['role'] !== 'super admin') {
+                    //if ($role['role'] !== 'super admin') {
                         echo "<option value='" . $role['role'] . "'>" . $role['role'] . "</option>";
-                    }
+                    //}
                 }
                 ?>
             </select>
@@ -56,8 +56,8 @@
             <input type="password" id="confirmPassword" name="confirmPassword" required>
         </p>
         <p><button type="submit" name="signUp" id="register">Sign Up</button></p>
-        <p>Have an Account? Click below:</p>
-        <a href="loginPage.html">Login</a>
+        
+        <p><a href="loginPage.php">Login</a></p>
     </form>
     <script src="register.js"></script>
 </body>

@@ -1,63 +1,49 @@
-<?php
-// Start session
-session_start();
-
-// Include database connection
-include '../settings/connection.php';
-
-// Initialize variables
-$user_id = $first_name = $last_name = $location = $phone = $price_range = '';
-$user_id_err = '';
-
-// Check if user is logged in
-if(isset($_SESSION["user_id"])) {
-    // Get the user ID from session
-    $user_id = $_SESSION["user_id"];
-
-    // Prepare statement to fetch vendor profile information based on user ID
-    $stmt = $con->prepare("SELECT first_name, last_name, location, phone, price_range FROM vendors WHERE user_id = ?");
-    
-    // Bind parameters
-    $stmt->bind_param("i", $user_id);
-    
-    // Execute statement
-    if ($stmt->execute()) {
-        // Store result
-        $stmt->store_result();
-        
-        // Check if vendor profile exists
-        if ($stmt->num_rows == 1) {
-            // Bind result variables
-            $stmt->bind_result($first_name, $last_name, $location, $phone, $price_range);
-            
-            // Fetch result
-            $stmt->fetch();
-        } else {
-            // If vendor profile does not exist, set error message
-            $user_id_err = "Vendor profile not found.";
-        }
-    } else {
-        echo "Oops! Something went wrong. Please try again later.";
-    }
-    
-    // Close statement
-    $stmt->close();
-} else {
-    // If user is not logged in, redirect to login page
-    header("location: ../login/loginPage.php");
-    exit;
-}
-
-// Close connection
-$con->close();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Vendor Profile</title>
+    <style>
+        body {
+            background: url('https://st.depositphotos.com/1031174/1997/i/950/depositphotos_19971449-stock-photo-work-tools.jpg') center fixed;
+            background-size: cover;
+        }
+        h2 {
+            color: #fff;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        label {
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="tel"],
+        input[type="submit"] {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: none;
+        }
+        input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+    </style>
 </head>
 <body>
     <h2>Edit Vendor Profile</h2>

@@ -2,7 +2,7 @@
 
 $serverName = "localhost";
 $userName = "root";
-$password = "";
+$password = "Password@2024";
 $dbName = "handyMen";
 
 //create connection 
@@ -11,7 +11,6 @@ $con = mysqli_connect($serverName, $userName, $password, $dbName);
 
 // Check connection
 if ($con) {
-  echo "Successful!";
 }
 else {
   echo "Condition not met!";

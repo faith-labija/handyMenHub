@@ -47,6 +47,7 @@ if ($result->num_rows > 0) {
     echo "No reviews found";
 }
 
+
 // Close database connection
 $con->close();
 ?>

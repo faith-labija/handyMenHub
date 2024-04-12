@@ -73,7 +73,7 @@
                 <label for="password">Enter Password:</label>
             </div>
             <button type="submit" name="signIn">Login</button>
-            <p><a href="registerPage.html">No Account Yet? Register here.</a></p>
+            <p><a href="registerPage.php">Sign Up</a></p>
         </form>
     </div>
     <script src="loginPage.js"></script>
