@@ -66,7 +66,7 @@
             <h1>Add New Service</h1>
             
             <?php 
-            // Start session
+           
             session_start();
 
             // Display error message if set
@@ -90,14 +90,14 @@
 
                 <div>
                     <label for="description">Description:</label><br>
-                    <textarea id="description" name="description" rows="4" cols="50" required></textarea>
+                    <textarea id="description" name="description" rows="4" required></textarea>
                 </div>
 
                 <button type="submit">Add Service</button>
             </form>
 
-            <!-- Go back button -->
-            <a href="vendor_welcome.php">Go Back</a>
+            
+            <a href="vendor_welcome copy.php">Go Back</a>
         </div>
     </div>
 </body>

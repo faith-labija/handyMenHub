@@ -20,7 +20,7 @@ $vendors = $result->fetch_all(MYSQLI_ASSOC);
         <div>
             <h2><?php echo $vendor['vendor_name']; ?></h2>
             <p><?php echo $vendor['description']; ?></p>
-            <!-- Other vendor details -->
+            
             <a href="booking_form.php?vendor_id=<?php echo $vendor['vendor_id']; ?>">Book Me</a>
             <a href="review_form.php?vendor_id=<?php echo $vendor['vendor_id']; ?>">Review Me</a>
         </div>

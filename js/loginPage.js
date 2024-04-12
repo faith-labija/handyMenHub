@@ -4,7 +4,8 @@ function ValidationLogin(email, password) {
     var passwordValue = document.getElementById("password");
 
     // validation for Email
-    var emailRegex = /^[a-zA-Z0-9._%+-]+@ashesi\.edu\.gh$/;
+    var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 
     if (!emailValue.value.match(emailRegex)) {
         alert("Invalid email address!");

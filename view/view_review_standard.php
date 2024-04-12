@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reviews</title>
-    <!-- Include CSS file or style the elements directly -->
+    
     <style>
         body {
             background: url('https://st.depositphotos.com/1031174/1997/i/950/depositphotos_19971449-stock-photo-work-tools.jpg') center fixed;
@@ -18,7 +18,7 @@
             height: 100vh;
         }
 
-        /* Adjust .form-wrapper styles to fit within the container */
+        
         .form-wrapper {
             border-radius: 20px;
             padding: 40px;
@@ -35,7 +35,7 @@
             margin-bottom: 20px;
         }
 
-        /* Style the table */
+        
         table {
             width: 100%;
             border-collapse: collapse;
@@ -53,7 +53,7 @@
             background-color: #333;
         }
 
-        /* Style the button */
+        
         button {
             display: block;
             width: 100%;
@@ -80,7 +80,7 @@
             <?php
             include '../settings/connection.php';
 
-            // Check if the database connection is successful
+            
             if ($con->connect_error) {
                 die("Connection failed: " . $con->connect_error);
             }
@@ -93,12 +93,12 @@
                     ORDER BY r.vendor_id";
             $result = $con->query($sql);
 
-            // Check if the query was executed successfully
+            
             if ($result === false) {
                 die("Error executing the query: " . $con->error);
             }
 
-            // Check if there are any reviews
+            
             if ($result->num_rows > 0) {
                 // Display reviews in a table
                 echo "<table>
@@ -124,7 +124,7 @@
                 echo "No reviews found";
             }
 
-            // Close database connection
+            
             $con->close();
             ?>
         </div>

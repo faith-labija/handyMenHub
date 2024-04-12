@@ -1,15 +1,15 @@
 <?php
-// Start session
+
 session_start();
 
-// Include database connection
+
 include '../settings/connection.php';
 
-// Initialize variables
+
 $first_name = $last_name = $location = $phone = $price_range = '';
 $vendor_id_err = '';
 
-// Check if user is logged in
+
 if(isset($_SESSION["user_id"])) {
     // Get the user ID from session
     $user_id = $_SESSION["user_id"];
@@ -17,29 +17,29 @@ if(isset($_SESSION["user_id"])) {
     // Prepare statement to fetch vendor profile information based on user ID
     $stmt_vendor = $con->prepare("SELECT vendor_id, first_name, last_name, location, phone, price_range FROM vendors WHERE user_id = ?");
     
-    // Bind parameters
+    
     $stmt_vendor->bind_param("i", $user_id);
     
-    // Execute statement
+   
     if ($stmt_vendor->execute()) {
-        // Store result
+        
         $stmt_vendor->store_result();
         
         // Check if vendor profile exists
         if ($stmt_vendor->num_rows == 1) {
-            // Bind result variables
+            
             $stmt_vendor->bind_result($vendor_id, $first_name, $last_name, $location, $phone, $price_range);
             
-            // Fetch result
+        
             $stmt_vendor->fetch();
             
             // Prepare statement to fetch services associated with the vendor
             $stmt_services = $con->prepare("SELECT DISTINCT service_name, description FROM services WHERE vendor_id = ?");
             
-            // Bind parameters
+            
             $stmt_services->bind_param("i", $vendor_id);
             
-            // Execute statement
+            
             if ($stmt_services->execute()) {
                 // Store result
                 $stmt_services->store_result();
@@ -52,11 +52,11 @@ if(isset($_SESSION["user_id"])) {
         echo "Oops! Something went wrong. Please try again later.";
     }
     
-    // Close statements
+    
     $stmt_vendor->close();
 }
 
-// Close connection
+
 $con->close();
 ?>
 
