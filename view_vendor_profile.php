@@ -6,7 +6,7 @@ session_start();
 include '../settings/connection.php';
 
 // Initialize variables
-$vendor_id = $first_name = $last_name = $location = $phone = $price_range = '';
+$first_name = $last_name = $location = $phone = $price_range = '';
 $vendor_id_err = '';
 
 // Check if user is logged in
@@ -15,23 +15,35 @@ if(isset($_SESSION["user_id"])) {
     $user_id = $_SESSION["user_id"];
 
     // Prepare statement to fetch vendor profile information based on user ID
-    $stmt = $con->prepare("SELECT vendor_id, first_name, last_name, location, phone, price_range FROM vendors WHERE user_id = ?");
+    $stmt_vendor = $con->prepare("SELECT first_name, last_name, location, phone, price_range FROM vendors WHERE user_id = ?");
     
     // Bind parameters
-    $stmt->bind_param("i", $user_id);
+    $stmt_vendor->bind_param("i", $user_id);
     
     // Execute statement
-    if ($stmt->execute()) {
+    if ($stmt_vendor->execute()) {
         // Store result
-        $stmt->store_result();
+        $stmt_vendor->store_result();
         
         // Check if vendor profile exists
-        if ($stmt->num_rows == 1) {
+        if ($stmt_vendor->num_rows == 1) {
             // Bind result variables
-            $stmt->bind_result($vendor_id, $first_name, $last_name, $location, $phone, $price_range);
+            $stmt_vendor->bind_result($first_name, $last_name, $location, $phone, $price_range);
             
             // Fetch result
-            $stmt->fetch();
+            $stmt_vendor->fetch();
+            
+            // Prepare statement to fetch services associated with the vendor
+            $stmt_services = $con->prepare("SELECT DISTINCT service_name, description FROM services WHERE vendor_id = ?");
+            
+            // Bind parameters
+            $stmt_services->bind_param("i", $vendor_id);
+            
+            // Execute statement
+            if ($stmt_services->execute()) {
+                // Store result
+                $stmt_services->store_result();
+            }
         } else {
             // If vendor profile does not exist, set error message
             $vendor_id_err = "Vendor profile not found.";
@@ -40,8 +52,8 @@ if(isset($_SESSION["user_id"])) {
         echo "Oops! Something went wrong. Please try again later.";
     }
     
-    // Close statement
-    $stmt->close();
+    // Close statements
+    $stmt_vendor->close();
 }
 
 // Close connection
@@ -54,7 +66,6 @@ $con->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Vendor Profile</title>
-    <link rel="stylesheet" href="path_to_bootstrap_css/bootstrap-grid.min.css">
     <style>
         body {
             background: url('https://st.depositphotos.com/1031174/1997/i/950/depositphotos_19971449-stock-photo-work-tools.jpg') center fixed;
@@ -73,15 +84,14 @@ $con->close();
             width: 400px;
             max-width: 90%;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            color: #fff;
         }
         .form-wrapper h1 {
-            color: #fff;
             font-size: 2rem;
             text-align: center;
             margin-bottom: 20px;
         }
         .form-wrapper p {
-            color: #fff;
             font-size: 1rem;
             margin-bottom: 10px;
         }
@@ -101,20 +111,42 @@ $con->close();
         .form-wrapper button:hover {
             background: #555;
         }
+        .form-wrapper ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .form-wrapper li {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="form-wrapper">
             <h1>Vendor Profile</h1>
-            <?php if (!empty($vendor_id)): ?>
-                <p><strong>Vendor ID:</strong> <?php echo $vendor_id; ?></p>
+            <?php if (!empty($first_name)): ?>
                 <p><strong>Name:</strong> <?php echo $first_name . ' ' . $last_name; ?></p>
                 <p><strong>Location:</strong> <?php echo $location; ?></p>
                 <p><strong>Phone:</strong> <?php echo $phone; ?></p>
                 <p><strong>Price Range:</strong> <?php echo $price_range; ?></p>
-                <button onclick="window.location.href='../view/vendor_welcome.php'" class="form-control">Go Back</button>
-                <!-- Additional profile information can be displayed here -->
+                <?php if ($stmt_services->num_rows > 0): ?>
+                    <h2>Services Offered</h2>
+                    <ul>
+                        <?php
+                        // Bind result variables for services
+                        $stmt_services->bind_result($service_name, $description);
+                        
+                        // Fetch and display services
+                        while ($stmt_services->fetch()) {
+                            echo "<li><strong>Service Name:</strong> $service_name</li>";
+                            echo "<li><strong>Description:</strong> $description</li>";
+                        }
+                        ?>
+                    </ul>
+                <?php else: ?>
+                    <p>No services offered by this vendor.</p>
+                <?php endif; ?>
+                <button onclick="window.location.href='../view/vendor_welcome.php'">Go Back</button>
             <?php else: ?>
                 <p><?php echo $vendor_id_err; ?></p>
             <?php endif; ?>

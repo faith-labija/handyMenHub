@@ -1,5 +1,5 @@
 <?php
-include '../settings/connection.php';
+include 'settings/connection.php';
 
 if (isset($_POST['signUp'])) {
     $fname = $_POST['name'];
@@ -26,7 +26,7 @@ if (isset($_POST['signUp'])) {
 
     // Execute the statement
     if ($stmt->execute()) {
-        header("location: ../login/loginPage.php");
+        header("location: login/loginPage.php");
         exit(); // Ensure no further code execution after redirection
     } else {
         // Error handling

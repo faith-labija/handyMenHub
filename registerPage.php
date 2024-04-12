@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-    <form onsubmit="return ValidationFunctions()" action="../actions/register_user_action.php" method="POST">
+    <form onsubmit="return ValidationFunctions()" action="actions/register_user_action.php" method="POST">
         <h2>Register Page</h2>
         <p><label for="FirstName">Enter First Name:</label>
             <input type="text" id="name" name="name" placeholder="Faith">
@@ -28,7 +28,7 @@
                 <option value="">Select role</option>
                 <?php
                 
-                include '../functions/select_role.php';
+                include 'functions/select_role.php';
 
                 // Call the getUsers function to fetch roles from the database
                 $web_users = getUsers();
@@ -57,7 +57,7 @@
         </p>
         <p><button type="submit" name="signUp" id="register">Sign Up</button></p>
         <p>Have an Account? Click below:</p>
-        <a href="loginPage.html">Login</a>
+        <a href="loginPage.php">Login</a>
     </form>
     <script src="register.js"></script>
 </body>

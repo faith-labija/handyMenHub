@@ -1,6 +1,10 @@
 <?php
 include '../settings/connection.php';
 
+echo '<pre>';
+print_r($_POST);
+echo '</pre>';
+
 if (isset($_POST['signUp'])) {
     $fname = $_POST['name'];
     $email = $_POST['email'];
@@ -11,26 +15,24 @@ if (isset($_POST['signUp'])) {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Prepare and bind parameters to prevent SQL injection
-    $stmt = $con->prepare("INSERT INTO Users (email, password, ut_id, name, phone, location) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt = $con->prepare("INSERT INTO users (email, password, ut_id, name, phone, location) VALUES (?, ?, ?, ?, ?, ?)");
 
     if (!$stmt) {
-        // Error handling
-        die('Error: ' . $con->error);
+        die('Prepare failed: ' . $con->error);
     }
 
-    $ut_id=($role=='vendor')?2:3;
+    $ut_id = ($role == 'vendor') ? 2 : 3;
 
     // Bind parameters
-    
-    $stmt->bind_param("ssissi", $email, $hashed_password, $ut_id, $fname, $tel, $location);
+
+    $stmt->bind_param("ssisss", $email, $hashed_password, $ut_id, $fname, $tel, $location);
 
     // Execute the statement
     if ($stmt->execute()) {
         header("location: ../login/loginPage.php");
         exit(); // Ensure no further code execution after redirection
-    } else {
-        // Error handling
-        echo "Registration failed: " . $stmt->error;
+    } elseif (!$stmt->execute()) {
+        die('Execute failed: ' . $stmt->error);
     }
 
     // Close statement
@@ -38,4 +40,3 @@ if (isset($_POST['signUp'])) {
 } else {
     echo 'Form submission not detected.';
 }
-?>

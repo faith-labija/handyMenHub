@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chore Login Page</title>
+    <title> Login Page</title>
     <link rel="stylesheet" type="text/css" href="loginPage.css">
     
 
@@ -62,7 +62,7 @@
 <body>
 <div class="container">
     <div class="form-wrapper">
-        <h2>Chore Login Page</h2>
+        <h2>HandyMen Login Page</h2>
         <form method="POST" onsubmit="return ValidationLogin()" action="../actions/login_user_action.php">
             <div class="form-control">
                 <input type="email" id="email" name="email" required>
